@@ -1,0 +1,36 @@
+.form-text {
+  display: flex;
+  flex-direction: column;
+  /* margin-bottom: 1rem; */
+  background-color: transparent;
+}
+
+.form-text__label {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.form-text__input {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: transparent;
+  transition: border-color 0.3s ease;
+}
+
+.form-text__input:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.form-text__input--error {
+  border-color: #dc3545;
+}
+
+.form-text__error {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}

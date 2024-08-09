@@ -1,0 +1,82 @@
+.form-select {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+}
+
+.form-select__label {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.form-select__input {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  cursor: pointer;
+  user-select: none;
+}
+
+.form-select__input:hover {
+  border-color: #888;
+}
+
+.form-select__input.open {
+  border-color: #1976d2;
+  box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
+}
+
+.form-select__input--error {
+  border-color: #dc3545;
+}
+
+.form-select__arrow {
+  font-size: 0.8rem;
+  transition: transform 0.3s ease;
+}
+
+.form-select__arrow.open {
+  transform: rotate(180deg);
+}
+
+.form-select__dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  max-height: 300px;
+  overflow-y: auto;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-select__option {
+  padding: 0.75rem;
+  cursor: pointer;
+}
+
+.form-select__option:hover {
+  background-color: #f5f5f5;
+}
+
+.form-select__option.selected {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.form-select__error {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
