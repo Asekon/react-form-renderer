@@ -1,5 +1,5 @@
+import React from "react";
 import { Controller, Control, RegisterOptions } from "react-hook-form";
-import { TextField, Typography, Box } from "@mui/material";
 
 interface FormTextAreaProps {
   name: string;
@@ -16,6 +16,7 @@ const FormTextArea: React.FC<FormTextAreaProps> = ({
   name,
   control,
   defaultValue = "",
+  label,
   placeholder,
   rows = 4,
   maxChars = 60,
@@ -28,28 +29,53 @@ const FormTextArea: React.FC<FormTextAreaProps> = ({
       defaultValue={defaultValue}
       rules={rules}
       render={({ field }) => (
-        <Box sx={{ position: "relative", width: "100%" }}>
-          <TextField
+        <div style={{ position: "relative" }}>
+          {/* {label && (
+            <label
+              htmlFor={name}
+              style={{
+                display: "block",
+                marginBottom: "0.5rem",
+                fontSize: "0.875rem",
+                fontWeight: 500,
+                color: "#333",
+              }}
+            >
+              {label}
+            </label>
+          )} */}
+          <textarea
             {...field}
-            fullWidth
-            multiline
-            rows={rows}
+            id={name}
             placeholder={placeholder}
-            inputProps={{ maxLength: maxChars }}
+            rows={rows}
+            maxLength={maxChars}
             onChange={(e) => field.onChange(e.target.value)}
+            style={{
+              width: "97%",
+              padding: "0.75rem",
+              fontSize: "1rem",
+              lineHeight: "1.5",
+              border: "1px solid #ccc",
+              borderRadius: "10px",
+              resize: "vertical",
+              fontFamily: "inherit",
+            }}
           />
-          <Typography
-            variant="body2"
-            sx={{
+          <div
+            style={{
               position: "absolute",
-              bottom: 8,
-              right: 8,
+              bottom: "8px",
+              right: "5px",
+              fontSize: "0.75rem",
               color: "#757575",
+              backgroundColor: "white",
+              padding: "0 4px",
             }}
           >
-            {field.value.length}/{maxChars}
-          </Typography>
-        </Box>
+            {field.value.length} / {maxChars}
+          </div>
+        </div>
       )}
     />
   );

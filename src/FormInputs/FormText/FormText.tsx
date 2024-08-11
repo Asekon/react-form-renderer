@@ -44,7 +44,6 @@ const FormText = ({
             }`}
             style={styles}
           />
-          {error && <span className="form-text__error">{error.message}</span>}
         </div>
       )}
     />

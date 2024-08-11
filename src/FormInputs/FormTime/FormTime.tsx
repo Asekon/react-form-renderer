@@ -1,24 +1,21 @@
+import React from "react";
 import { Controller, Control, RegisterOptions } from "react-hook-form";
-import { TimePicker } from "@mui/x-date-pickers";
-import { FormControl, FormControlProps } from "@mui/material";
 
 interface FormTimeProps {
   name: string;
   control: Control<any>;
   label?: string;
-  defaultValue?: any;
-  formControlProps?: FormControlProps;
+  defaultValue?: string;
   rules?: RegisterOptions;
 }
 
-const FormTime = ({
+const FormTime: React.FC<FormTimeProps> = ({
   name,
   control,
   label,
   defaultValue,
-  formControlProps,
   rules,
-}: FormTimeProps) => {
+}) => {
   return (
     <Controller
       name={name}
@@ -26,13 +23,33 @@ const FormTime = ({
       defaultValue={defaultValue}
       rules={rules}
       render={({ field }) => (
-        <FormControl {...formControlProps}>
-          <TimePicker
-            label={label}
-            value={field.value || null}
-            onChange={(newValue) => field.onChange(newValue)}
+        <div style={{ display: "flex", marginBottom: "1rem" }}>
+          {/* {label && (
+            <label
+              htmlFor={name}
+              style={{
+                display: "block",
+                marginBottom: "0.5rem",
+                fontWeight: "bold",
+              }}
+            >
+              {label}
+            </label>
+          )} */}
+          <input
+            {...field}
+            type="time"
+            id={name}
+            style={{
+              width: "100%",
+              padding: "0.7rem",
+              fontSize: "1rem",
+              border: "1px solid #ccc",
+              borderRadius: "10px",
+              outline: "none",
+            }}
           />
-        </FormControl>
+        </div>
       )}
     />
   );

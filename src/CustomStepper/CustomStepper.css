@@ -1,0 +1,54 @@
+.custom-stepper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 70%;
+  margin: 20px auto 30px;
+  align-items: baseline;
+}
+
+.step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.connector {
+  flex: 2;
+  height: 2px;
+  background-color: #e0e0e0;
+}
+
+.connector.active {
+  background-color: #1976d2;
+}
+
+.indicator {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  background-color: #e0e0e0;
+  color: black;
+}
+
+.indicator.active {
+  background-color: #1976d2;
+  color: white;
+}
+
+.label {
+  font-size: 14px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.label.active {
+  color: #1976d2;
+}

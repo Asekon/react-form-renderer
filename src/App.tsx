@@ -171,7 +171,7 @@ function App() {
   };
   return (
     <>
-      <FormRenderer schema={formSchema} onSubmit={handleSubmit} />
+      <FormRenderer schema={formSchema} onSubmit={handleSubmit} multiStep />
     </>
   );
 }

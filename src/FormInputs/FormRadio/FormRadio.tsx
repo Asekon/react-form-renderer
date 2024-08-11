@@ -1,5 +1,5 @@
+import React from "react";
 import { Controller, Control, RegisterOptions } from "react-hook-form";
-import { Chip, FormControl, FormGroup, FormControlProps } from "@mui/material";
 
 interface FormRadioProps {
   name: string;
@@ -7,8 +7,6 @@ interface FormRadioProps {
   defaultValue?: string;
   label: string;
   options: { label: string; value: string }[];
-  formControlProps?: FormControlProps;
-  chipProps?: any;
   rules?: RegisterOptions;
 }
 
@@ -17,37 +15,57 @@ const FormRadio: React.FC<FormRadioProps> = ({
   control,
   defaultValue,
   options,
-  formControlProps,
-  chipProps,
   rules,
 }) => {
   return (
-    <FormControl {...formControlProps}>
+    <div style={{ marginBottom: "1rem", width: "100%" }}>
       <Controller
         name={name}
         control={control}
         defaultValue={defaultValue}
         rules={rules}
         render={({ field: { onChange, value } }) => (
-          <FormGroup row {...formControlProps} sx={{ gap: 3 }}>
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "3rem",
+              width: "100%",
+            }}
+          >
             {options.map((option) => (
-              <Chip
+              <button
                 key={option.value}
-                label={option.label}
+                type="button"
                 onClick={() => onChange(option.value)}
-                variant={value === option.value ? "filled" : "outlined"}
-                color={value === option.value ? "primary" : "default"}
-                sx={{
-                  ...chipProps,
-                  fontSize: 20,
-                  p: 3,
+                style={{
+                  flex: "1 0 0",
+                  minWidth: "calc(33.333% - 0.5rem)",
+                  padding: "0.6rem 0.5rem",
+                  fontSize: "1.25rem",
+                  border: `2px solid ${
+                    value === option.value ? "#1976d2" : "#ccc"
+                  }`,
+                  borderRadius: "2rem",
+                  background:
+                    value === option.value ? "#1976d2" : "transparent",
+                  color: value === option.value ? "white" : "#333",
+                  cursor: "pointer",
+                  transition: "all 0.3s",
+                  outline: "none",
+                  textAlign: "center",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
                 }}
-              />
+              >
+                {option.label}
+              </button>
             ))}
-          </FormGroup>
+          </div>
         )}
       />
-    </FormControl>
+    </div>
   );
 };
 

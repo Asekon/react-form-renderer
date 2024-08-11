@@ -12,11 +12,12 @@ import {
 } from "@mui/material";
 import FormSelect from "../FormInputs/FormSelect/FormSelect";
 import FormText from "../FormInputs/FormText/FormText";
-// import FormDate from "../FormInputs/FormDate/FormDate";
-// import FormTime from "../FormInputs/FormTime/FormTime";
-// import FormFile from "../FormInputs/FormFile/FormFile";
-// import FormRadio from "../FormInputs/FormRadio/FormRadio";
-// import FormTextArea from "../FormInputs/FormTextArea/FormTextArea";
+import FormDate from "../FormInputs/FormDate/FormDate";
+import FormTime from "../FormInputs/FormTime/FormTime";
+import FormFile from "../FormInputs/FormFile/FormFile";
+import FormRadio from "../FormInputs/FormRadio/FormRadio";
+import FormTextArea from "../FormInputs/FormTextArea/FormTextArea";
+import CustomStepper from "../CustomStepper/CustomStepper";
 
 interface FormInput {
   name: string;
@@ -54,21 +55,23 @@ const FormRenderer: React.FC<FormRendererProps> = ({
   const methods = useForm();
   const [activeStep, setActiveStep] = useState(0);
 
+  const handleSubmit = async () => {
+    const isValid = await methods.trigger();
+    if (isValid) {
+      onSubmit(methods.getValues());
+    }
+  };
+
   const handleNext = async () => {
     const isValid = await methods.trigger();
     if (isValid) {
-      if (activeStep === schema.length - 1) {
-        onSubmit(methods.getValues());
-      } else {
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-      }
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
-
   const renderFormInputs = (input: FormInput, index: number) => {
     const isRequired = input.validation?.required !== undefined;
     const error = methods.formState.errors[input.name];
@@ -80,6 +83,7 @@ const FormRenderer: React.FC<FormRendererProps> = ({
           backgroundColor: error ? "rgba(255, 0, 0, 0.05)" : "transparent",
           padding: 1,
           borderRadius: 5,
+          mb: 2,
         }}
       >
         <Box
@@ -127,60 +131,60 @@ const FormRenderer: React.FC<FormRendererProps> = ({
                   rules={input.validation}
                 />
               );
-            // case "date":
-            //   return (
-            //     <FormDate
-            //       key={`date-${index}`}
-            //       name={input.name}
-            //       control={methods.control}
-            //       defaultValue={input.defaultValue}
-            //       rules={input.validation}
-            //     />
-            //   );
-            // case "time":
-            //   return (
-            //     <FormTime
-            //       key={`time-${index}`}
-            //       name={input.name}
-            //       control={methods.control}
-            //       defaultValue={input.defaultValue}
-            //       rules={input.validation}
-            //     />
-            //   );
-            // case "radio":
-            //   return (
-            //     <FormRadio
-            //       key={`radio-${index}`}
-            //       name={input.name}
-            //       control={methods.control}
-            //       defaultValue={input.defaultValue}
-            //       label={input.label}
-            //       options={input.options || []}
-            //       rules={input.validation}
-            //     />
-            //   );
-            // case "file":
-            //   return (
-            //     <FormFile
-            //       key={`file-${index}`}
-            //       name={input.name}
-            //       control={methods.control}
-            //       label={input.label}
-            //       rules={input.validation}
-            //     />
-            //   );
-            // case "textArea":
-            //   return (
-            //     <FormTextArea
-            //       key={`textArea-${index}`}
-            //       name={input.name}
-            //       control={methods.control}
-            //       defaultValue={input.defaultValue || ""}
-            //       placeholder={input.placeholder}
-            //       rules={input.validation}
-            //       maxChars={input.maxChars}
-            //     />
-            //   );
+            case "date":
+              return (
+                <FormDate
+                  key={`date-${index}`}
+                  name={input.name}
+                  control={methods.control}
+                  defaultValue={input.defaultValue}
+                  rules={input.validation}
+                />
+              );
+            case "time":
+              return (
+                <FormTime
+                  key={`time-${index}`}
+                  name={input.name}
+                  control={methods.control}
+                  defaultValue={input.defaultValue}
+                  rules={input.validation}
+                />
+              );
+            case "radio":
+              return (
+                <FormRadio
+                  key={`radio-${index}`}
+                  name={input.name}
+                  control={methods.control}
+                  defaultValue={input.defaultValue}
+                  label={input.label}
+                  options={input.options || []}
+                  rules={input.validation}
+                />
+              );
+            case "file":
+              return (
+                <FormFile
+                  key={`file-${index}`}
+                  name={input.name}
+                  control={methods.control}
+                  label={input.label}
+                  rules={input.validation}
+                />
+              );
+            case "textArea":
+              return (
+                <FormTextArea
+                  key={`textArea-${index}`}
+                  name={input.name}
+                  control={methods.control}
+                  defaultValue={input.defaultValue || ""}
+                  placeholder={input.placeholder}
+                  rules={input.validation}
+                  maxChars={input.maxChars}
+                />
+              );
             default:
               return null;
           }
@@ -191,16 +195,25 @@ const FormRenderer: React.FC<FormRendererProps> = ({
 
   const renderStep = (step: FormStep, stepIndex: number) => (
     <Box key={`step-${stepIndex}`}>
-      <Typography variant="h4" mb={2}>
+      <Typography variant="h4" mb={2} sx={{ textAlign: "left" }}>
         {step.title}
       </Typography>
       <Stack spacing={3}>
         {step.sections.map((section, sectionIndex) => (
-          <Box key={`section-${sectionIndex}`}>
-            <Typography variant="h6" mb={2}>
+          <Box
+            key={`section-${sectionIndex}`}
+            sx={{
+              bgcolor: "white",
+              backgroundColor: "white",
+              borderRadius: 3,
+              padding: 3,
+              boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.1)",
+            }}
+          >
+            <Typography variant="h6" mb={2} sx={{ textAlign: "left" }}>
               {section.title}
             </Typography>
-            <Grid container columnSpacing={3}>
+            <Grid container columnSpacing={5}>
               {section.inputs.map((input, inputIndex) => (
                 <Grid
                   key={`input-${inputIndex}`}
@@ -222,7 +235,6 @@ const FormRenderer: React.FC<FormRendererProps> = ({
     <FormProvider {...methods}>
       <Stack
         sx={{
-          p: 3,
           mb: 3,
           bgcolor: "white",
           backgroundColor: "white",
@@ -231,19 +243,10 @@ const FormRenderer: React.FC<FormRendererProps> = ({
           boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.1)",
         }}
       >
-        {multiStep && (
-          <Stepper
-            key="stepper"
-            activeStep={activeStep}
-            sx={{ mb: 4, gap: 1, width: "70%", alignSelf: "center" }}
-          >
-            {schema.map((step, index) => (
-              <Step key={`step-label-${index}`}>
-                <StepLabel>{step.title}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-        )}
+        <CustomStepper
+          steps={schema.map((step) => step.title)}
+          activeStep={activeStep}
+        />
         <Stack gap={5}>
           {multiStep
             ? renderStep(schema[activeStep], activeStep)
@@ -271,13 +274,23 @@ const FormRenderer: React.FC<FormRendererProps> = ({
             <Box key="empty-box" />
           )}
           <Button
-            key="next-button"
-            onClick={handleNext}
+            key="next-or-submit-button"
+            onClick={
+              multiStep
+                ? activeStep === schema.length - 1
+                  ? handleSubmit
+                  : handleNext
+                : handleSubmit
+            }
             variant="contained"
             color="primary"
             sx={{ px: 7 }}
           >
-            {activeStep === schema.length - 1 ? "Submit" : "Next"}
+            {multiStep
+              ? activeStep === schema.length - 1
+                ? "Submit"
+                : "Next"
+              : "Submit"}
           </Button>
         </Box>
       </Stack>
