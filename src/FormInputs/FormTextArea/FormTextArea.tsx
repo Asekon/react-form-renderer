@@ -29,21 +29,11 @@ const FormTextArea: React.FC<FormTextAreaProps> = ({
       defaultValue={defaultValue}
       rules={rules}
       render={({ field }) => (
-        <div style={{ position: "relative" }}>
-          {/* {label && (
-            <label
-              htmlFor={name}
-              style={{
-                display: "block",
-                marginBottom: "0.5rem",
-                fontSize: "0.875rem",
-                fontWeight: 500,
-                color: "#333",
-              }}
-            >
-              {label}
-            </label>
-          )} */}
+        <div
+          style={{
+            position: "relative",
+          }}
+        >
           <textarea
             {...field}
             id={name}
@@ -52,21 +42,23 @@ const FormTextArea: React.FC<FormTextAreaProps> = ({
             maxLength={maxChars}
             onChange={(e) => field.onChange(e.target.value)}
             style={{
-              width: "97%",
-              padding: "0.75rem",
+              width: "100%",
               fontSize: "1rem",
+              padding: "0.75rem",
               lineHeight: "1.5",
               border: "1px solid #ccc",
               borderRadius: "10px",
               resize: "vertical",
               fontFamily: "inherit",
+              boxSizing: "border-box",
+              minHeight: "50px",
             }}
           />
           <div
             style={{
               position: "absolute",
-              bottom: "8px",
-              right: "5px",
+              bottom: "15px",
+              right: "10px",
               fontSize: "0.75rem",
               color: "#757575",
               backgroundColor: "white",
