@@ -1,35 +1,17 @@
 import "./App.css";
 import FormRenderer from "./FormRenderer/FormRenderer";
+import { FormStep } from "./types";
 
 function App() {
-  interface FormSection {
-    title: string;
-    layout: { columns: number };
-    inputs: FormInputField[];
-  }
-
-  interface FormStep {
-    title: string;
-    sections: FormSection[];
-  }
-  interface FormInputField {
-    name: string;
-    label: string;
-    type: "text" | "select" | "date" | "radio" | "file" | "time" | "textArea";
-    placeholder?: string;
-    options?: { label: string; value: string }[];
-    defaultValue?: string;
-    validation?: { required: string };
-    maxChars?: number;
-    rows?: number;
-  }
   const formSchema: FormStep[] = [
     {
       title: "Main Info",
+      // stepTitleStyle: { color: "blue", fontWeight: "bold" },
       sections: [
         {
           title: "Personal Details",
           layout: { columns: 2 },
+          // sectionStyle: { backgroundColor: "#f0f0f0", padding: "10px" },
           inputs: [
             {
               name: "patientName",
@@ -131,6 +113,7 @@ function App() {
               label: "Record 1",
               type: "text",
               placeholder: "Record Info",
+              validation: { required: "record1 is required" },
             },
             {
               name: "record2",
@@ -171,7 +154,48 @@ function App() {
   };
   return (
     <>
-      <FormRenderer schema={formSchema} onSubmit={handleSubmit} multiStep />
+      <FormRenderer
+        schema={formSchema}
+        onSubmit={handleSubmit}
+        multiStep
+        formContainerStyle={{}}
+        stepperStyle={{
+          stepper: {
+            // marginBottom: "2rem",
+          },
+          step: {
+            // Custom styles for each step
+          },
+          indicator: {
+            backgroundColor: "#bdc3c7",
+            color: "#ffffff",
+          },
+          activeIndicator: {
+            backgroundColor: "#3498db",
+          },
+          label: {
+            color: "#7f8c8d",
+          },
+          activeLabel: {
+            color: "#2c3e50",
+            fontWeight: "bold",
+          },
+          connector: {
+            backgroundColor: "#bdc3c7",
+          },
+          activeConnector: {
+            backgroundColor: "#3498db",
+          },
+        }}
+        stepTitleStyle={{ textAlign: "left" }}
+        sectionContainerStyle={{ textAlign: "left" }}
+        // sectionTitleStyle={{}}
+        // inputContainerStyle={{}}
+        // buttonContainerStyle={{}}
+        // leftButtonStyle={{}}
+        // rightButtonStyle={{}}
+        // validationMessageStyle={{}}
+      />
     </>
   );
 }

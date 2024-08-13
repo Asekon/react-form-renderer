@@ -39,9 +39,10 @@ const FormText = ({
             id={name}
             type="text"
             placeholder={placeholder}
-            className={`form-text__input ${
-              error ? "form-text__input--error" : ""
-            }`}
+            // className={`form-text__input ${
+            //   error ? "form-text__input--error" : ""
+            // }`}
+            className={`form-text__input`}
             style={styles}
           />
         </div>

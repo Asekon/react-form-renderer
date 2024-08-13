@@ -1,15 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
-import {
-  Grid,
-  Typography,
-  Button,
-  Stepper,
-  Step,
-  StepLabel,
-  Box,
-  Stack,
-} from "@mui/material";
+import { Grid, Typography, Button, Box, Stack } from "@mui/material";
 import FormSelect from "../FormInputs/FormSelect/FormSelect";
 import FormText from "../FormInputs/FormText/FormText";
 import FormDate from "../FormInputs/FormDate/FormDate";
@@ -18,42 +9,106 @@ import FormFile from "../FormInputs/FormFile/FormFile";
 import FormRadio from "../FormInputs/FormRadio/FormRadio";
 import FormTextArea from "../FormInputs/FormTextArea/FormTextArea";
 import CustomStepper from "../CustomStepper/CustomStepper";
+import { FormInput, FormRendererProps, FormStep } from "../types";
 
-interface FormInput {
-  name: string;
-  label: string;
-  type: string;
-  placeholder?: string;
-  defaultValue?: string;
-  options?: { label: string; value: string }[];
-  validation?: { required: string };
-  maxChars?: number;
-}
+const defaultThemeColor = "#1976d2";
+const getDefaultStyles = (themeColor: string) => ({
+  formContainer: {
+    maxWidth: "800px",
+    margin: "0 auto",
+    backgroundColor: "#f5f5f5",
+    borderRadius: "8px",
+    padding: "24px",
+    boxShadow: "0px 0px 10px rgba(0,0,0,0.1)",
+  },
+  stepper: {
+    stepper: {
+      marginBottom: "2rem",
+    },
+    indicator: {
+      backgroundColor: "#bdc3c7",
+      color: "#ffffff",
+    },
+    activeIndicator: {
+      backgroundColor: themeColor,
+    },
+    label: {
+      color: "#7f8c8d",
+    },
+    activeLabel: {
+      color: "#2c3e50",
+      fontWeight: "bold",
+    },
+    connector: {
+      backgroundColor: "#bdc3c7",
+    },
+    activeConnector: {
+      backgroundColor: themeColor,
+    },
+  },
+  stepTitle: {
+    color: "#2c3e50",
+    fontWeight: "bold",
+    marginBottom: "1.5rem",
+  },
+  sectionContainer: {
+    backgroundColor: "#ffffff",
+    borderRadius: "8px",
+    boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+    padding: "16px",
+    marginBottom: "24px",
+  },
+  sectionTitle: {
+    color: "#34495e",
+    borderBottom: `2px solid ${themeColor}`,
+    paddingBottom: "0.5rem",
+    marginBottom: "1rem",
+  },
+  inputContainer: {
+    marginBottom: "1rem",
+  },
+  buttonContainer: {
+    display: "flex",
+    justifyContent: "space-between",
+    marginTop: "15px",
+  },
+  leftButton: {},
+  rightButton: {
+    backgroundColor: themeColor,
+    color: "#ffffff",
+    "&:hover": {
+      backgroundColor: themeColor,
+      opacity: 0.9,
+    },
+  },
+  validationMessage: {
+    color: "grey",
+    fontStyle: "italic",
+    textAlign: "right",
+    minHeight: "25px",
+    marginTop: "20px",
+  },
+});
 
-interface FormSection {
-  title: string;
-  layout: { columns: number };
-  inputs: FormInput[];
-}
-
-interface FormStep {
-  title: string;
-  sections: FormSection[];
-}
-
-interface FormRendererProps {
-  schema: FormStep[];
-  onSubmit: (data: any) => void;
-  multiStep?: boolean;
-}
-
-const FormRenderer: React.FC<FormRendererProps> = ({
+const FormRenderer: React.FC<FormRendererProps & { themeColor?: string }> = ({
   schema,
   onSubmit,
   multiStep = false,
+  formContainerStyle,
+  stepperStyle,
+  stepTitleStyle,
+  sectionContainerStyle,
+  sectionTitleStyle,
+  inputContainerStyle,
+  buttonContainerStyle,
+  leftButtonStyle,
+  rightButtonStyle,
+  validationMessageStyle,
+  themeColor = defaultThemeColor,
 }) => {
   const methods = useForm();
   const [activeStep, setActiveStep] = useState(0);
+  const defaultStyles = getDefaultStyles(themeColor);
 
   const handleSubmit = async () => {
     const isValid = await methods.trigger();
@@ -69,21 +124,23 @@ const FormRenderer: React.FC<FormRendererProps> = ({
     }
   };
 
+  useEffect(() => {
+    methods.trigger();
+  }, [activeStep, methods]);
+
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
+
   const renderFormInputs = (input: FormInput, index: number) => {
     const isRequired = input.validation?.required !== undefined;
-    const error = methods.formState.errors[input.name];
 
     return (
       <Box
         key={`input-wrapper-${index}`}
         sx={{
-          backgroundColor: error ? "rgba(255, 0, 0, 0.05)" : "transparent",
-          padding: 1,
-          borderRadius: 5,
-          mb: 2,
+          ...defaultStyles.inputContainer,
+          ...inputContainerStyle,
         }}
       >
         <Box
@@ -100,11 +157,6 @@ const FormRenderer: React.FC<FormRendererProps> = ({
             )}
             {input.label}
           </Typography>
-          {error && (
-            <Typography color="error" variant="caption">
-              {error.message as string}
-            </Typography>
-          )}
         </Box>
         {(() => {
           switch (input.type) {
@@ -195,7 +247,15 @@ const FormRenderer: React.FC<FormRendererProps> = ({
 
   const renderStep = (step: FormStep, stepIndex: number) => (
     <Box key={`step-${stepIndex}`}>
-      <Typography variant="h4" mb={2} sx={{ textAlign: "left" }}>
+      <Typography
+        variant="h4"
+        mb={2}
+        sx={{
+          ...defaultStyles.stepTitle,
+          ...stepTitleStyle,
+          ...(step.stepTitleStyle || {}),
+        }}
+      >
         {step.title}
       </Typography>
       <Stack spacing={3}>
@@ -203,14 +263,19 @@ const FormRenderer: React.FC<FormRendererProps> = ({
           <Box
             key={`section-${sectionIndex}`}
             sx={{
-              bgcolor: "white",
-              backgroundColor: "white",
-              borderRadius: 3,
-              padding: 3,
-              boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.1)",
+              ...defaultStyles.sectionContainer,
+              ...sectionContainerStyle,
+              ...(section.sectionStyle || {}),
             }}
           >
-            <Typography variant="h6" mb={2} sx={{ textAlign: "left" }}>
+            <Typography
+              variant="h6"
+              mb={2}
+              sx={{
+                ...defaultStyles.sectionTitle,
+                ...sectionTitleStyle,
+              }}
+            >
               {section.title}
             </Typography>
             <Grid container columnSpacing={5}>
@@ -235,30 +300,38 @@ const FormRenderer: React.FC<FormRendererProps> = ({
     <FormProvider {...methods}>
       <Stack
         sx={{
-          mb: 3,
-          bgcolor: "white",
-          backgroundColor: "white",
-          borderRadius: 3,
-          padding: 3,
-          boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.1)",
+          ...defaultStyles.formContainer,
+          ...formContainerStyle,
         }}
       >
-        <CustomStepper
-          steps={schema.map((step) => step.title)}
-          activeStep={activeStep}
-        />
+        {multiStep && (
+          <CustomStepper
+            steps={schema.map((step) => step.title)}
+            activeStep={activeStep}
+            customStyles={{
+              ...defaultStyles.stepper,
+              ...stepperStyle,
+            }}
+          />
+        )}
         <Stack gap={5}>
           {multiStep
             ? renderStep(schema[activeStep], activeStep)
             : schema.map((step, index) => renderStep(step, index))}
         </Stack>
+        <Typography
+          sx={{
+            ...defaultStyles.validationMessage,
+            ...validationMessageStyle,
+          }}
+        >
+          {!methods.formState.isValid && "Please fill all required fields"}
+        </Typography>
         <Box
           key="button-box"
           sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            mt: 4,
-            px: 2,
+            ...defaultStyles.buttonContainer,
+            ...buttonContainerStyle,
           }}
         >
           {multiStep && activeStep > 0 ? (
@@ -266,13 +339,19 @@ const FormRenderer: React.FC<FormRendererProps> = ({
               key="back-button"
               onClick={handleBack}
               variant="outlined"
-              sx={{ px: 7 }}
+              sx={{
+                px: 7,
+                width: 120,
+                ...defaultStyles.leftButton,
+                ...leftButtonStyle,
+              }}
             >
               Back
             </Button>
           ) : (
             <Box key="empty-box" />
           )}
+
           <Button
             key="next-or-submit-button"
             onClick={
@@ -284,7 +363,13 @@ const FormRenderer: React.FC<FormRendererProps> = ({
             }
             variant="contained"
             color="primary"
-            sx={{ px: 7 }}
+            sx={{
+              px: 7,
+              width: 120,
+              ...defaultStyles.rightButton,
+              ...rightButtonStyle,
+            }}
+            disabled={!methods.formState.isValid}
           >
             {multiStep
               ? activeStep === schema.length - 1
