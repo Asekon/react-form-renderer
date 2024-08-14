@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center;
   width: 70%;
-  margin: 20px auto 30px;
+  margin: 10px auto 10px;
   align-items: baseline;
 }
 
@@ -21,7 +21,7 @@
 }
 
 .connector.active {
-  background-color: #1976d2;
+  background-color: var(--theme-color);
 }
 
 .indicator {
@@ -39,7 +39,7 @@
 }
 
 .indicator.active {
-  background-color: #1976d2;
+  background-color: var(--theme-color);
   color: white;
 }
 
@@ -50,5 +50,5 @@
 }
 
 .label.active {
-  color: #1976d2;
+  color: var(--theme-color);
 }

@@ -7,41 +7,12 @@
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-.stepper {
-  margin-bottom: 2rem;
-}
-
-.step-indicator {
-  background-color: #bdc3c7;
-  color: #ffffff;
-}
-
-.step-indicator.active {
-  background-color: #1976d2;
-}
-
-.step-label {
-  color: #7f8c8d;
-}
-
-.step-label.active {
-  color: #2c3e50;
-  font-weight: bold;
-}
-
-.step-connector {
-  background-color: #bdc3c7;
-}
-
-.step-connector.active {
-  background-color: #1976d2;
-}
-
 .step-title {
   color: #2c3e50;
   font-weight: bold;
   margin-bottom: 1.5rem;
-  font-size: 2rem;
+  font-size: 2.3rem;
+  text-align: left;
 }
 
 .section-container {
@@ -54,10 +25,12 @@
 
 .section-title {
   color: #34495e;
-  border-bottom: 2px solid #1976d2;
+  border-bottom: 2px solid var(--theme-color);
   padding-bottom: 0.5rem;
   margin-bottom: 1rem;
   font-size: 1.25rem;
+  text-align: left;
+  font-weight: bold;
 }
 
 .input-container {
@@ -68,10 +41,10 @@
   color: grey;
   display: block;
   margin-bottom: 0.5rem;
+  text-align: left;
 }
 
 .input-required {
-  color: red;
   margin-right: 4px;
 }
 
@@ -92,12 +65,12 @@
 
 .button-left {
   background-color: transparent;
-  border: 1px solid #1976d2;
-  color: #1976d2;
+  border: 1px solid var(--theme-color);
+  color: var(--theme-color);
 }
 
 .button-right {
-  background-color: #1976d2;
+  background-color: var(--theme-color);
   color: #ffffff;
 }
 

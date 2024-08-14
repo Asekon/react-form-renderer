@@ -4,7 +4,6 @@ import { Controller, Control, RegisterOptions } from "react-hook-form";
 interface FormTimeProps {
   name: string;
   control: Control<any>;
-  label?: string;
   defaultValue?: string;
   rules?: RegisterOptions;
 }
@@ -12,7 +11,6 @@ interface FormTimeProps {
 const FormTime: React.FC<FormTimeProps> = ({
   name,
   control,
-  label,
   defaultValue,
   rules,
 }) => {
@@ -20,22 +18,10 @@ const FormTime: React.FC<FormTimeProps> = ({
     <Controller
       name={name}
       control={control}
-      defaultValue={defaultValue}
+      defaultValue={defaultValue || ""}
       rules={rules}
       render={({ field }) => (
         <div style={{ display: "flex", marginBottom: "1rem" }}>
-          {/* {label && (
-            <label
-              htmlFor={name}
-              style={{
-                display: "block",
-                marginBottom: "0.5rem",
-                fontWeight: "bold",
-              }}
-            >
-              {label}
-            </label>
-          )} */}
           <input
             {...field}
             type="time"
@@ -47,6 +33,7 @@ const FormTime: React.FC<FormTimeProps> = ({
               border: "1px solid #ccc",
               borderRadius: "10px",
               outline: "none",
+              fontFamily: "inherit",
             }}
           />
         </div>

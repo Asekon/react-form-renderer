@@ -1,28 +1,24 @@
-import React, { useState } from "react";
 import { Controller, Control, RegisterOptions } from "react-hook-form";
+import { fileTypeMappings } from "../../util";
 
 interface FormFileProps {
   name: string;
   control: Control<any>;
-  label?: string;
+  accept?: string;
   rules?: RegisterOptions;
 }
 
-const FormFile: React.FC<FormFileProps> = ({ name, control, label, rules }) => {
-  const [preview, setPreview] = useState<string | null>(null);
-
+const FormFile: React.FC<FormFileProps> = ({
+  name,
+  control,
+  rules,
+  accept,
+}) => {
   const handleFileChange =
     (onChange: (file: File | null) => void) =>
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const file = event.target.files?.[0] || null;
       onChange(file);
-      if (file && file.type.startsWith("image/")) {
-        const reader = new FileReader();
-        reader.onloadend = () => setPreview(reader.result as string);
-        reader.readAsDataURL(file);
-      } else {
-        setPreview(null);
-      }
     };
 
   return (
@@ -32,17 +28,6 @@ const FormFile: React.FC<FormFileProps> = ({ name, control, label, rules }) => {
       rules={rules}
       render={({ field: { onChange, value } }) => (
         <div style={{ width: "100%" }}>
-          {/* {label && (
-            <label
-              style={{
-                display: "block",
-                marginBottom: "0.5rem",
-                fontWeight: "bold",
-              }}
-            >
-              {label}
-            </label>
-          )} */}
           <div
             style={{
               display: "flex",
@@ -68,7 +53,7 @@ const FormFile: React.FC<FormFileProps> = ({ name, control, label, rules }) => {
             <label
               style={{
                 padding: "0.3rem 1rem",
-                backgroundColor: "#4a90e2",
+                backgroundColor: "var(--theme-color)",
                 color: "white",
                 borderRadius: "4px",
                 cursor: "pointer",
@@ -77,6 +62,7 @@ const FormFile: React.FC<FormFileProps> = ({ name, control, label, rules }) => {
             >
               Choose File
               <input
+                accept={accept && fileTypeMappings[accept]}
                 type="file"
                 style={{ display: "none" }}
                 onChange={handleFileChange(onChange)}

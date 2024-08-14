@@ -29,7 +29,7 @@ const FormRadio: React.FC<FormRadioProps> = ({
             style={{
               display: "flex",
               flexWrap: "wrap",
-              gap: "3rem",
+              gap: "1rem",
               width: "100%",
             }}
           >
@@ -41,14 +41,16 @@ const FormRadio: React.FC<FormRadioProps> = ({
                 style={{
                   flex: "1 0 0",
                   minWidth: "calc(33.333% - 0.5rem)",
-                  padding: "0.6rem 0.5rem",
+                  padding: "0.7rem 0.5rem",
                   fontSize: "1.25rem",
                   border: `2px solid ${
-                    value === option.value ? "#1976d2" : "#ccc"
+                    value === option.value ? "var(--theme-color)" : "#ccc"
                   }`,
                   borderRadius: "2rem",
                   background:
-                    value === option.value ? "#1976d2" : "transparent",
+                    value === option.value
+                      ? "var(--theme-color)"
+                      : "transparent",
                   color: value === option.value ? "white" : "#333",
                   cursor: "pointer",
                   transition: "all 0.3s",

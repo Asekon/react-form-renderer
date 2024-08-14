@@ -4,7 +4,6 @@ import { Controller, Control, RegisterOptions } from "react-hook-form";
 interface FormDateProps {
   name: string;
   control: Control<any>;
-  label?: string;
   defaultValue?: any;
   rules?: RegisterOptions;
 }
@@ -12,7 +11,6 @@ interface FormDateProps {
 const FormDate: React.FC<FormDateProps> = ({
   name,
   control,
-  label,
   defaultValue,
   rules,
 }) => {
@@ -30,19 +28,6 @@ const FormDate: React.FC<FormDateProps> = ({
             marginBottom: "1rem",
           }}
         >
-          {label && (
-            <label
-              htmlFor={name}
-              style={{
-                marginBottom: "0.5rem",
-                fontSize: "0.875rem",
-                fontWeight: 500,
-                color: "#333",
-              }}
-            >
-              {label}
-            </label>
-          )}
           <input
             type="date"
             id={name}
@@ -56,6 +41,7 @@ const FormDate: React.FC<FormDateProps> = ({
               borderRadius: "10px",
               outline: "none",
               transition: "border-color 0.2s",
+              fontFamily: "inherit",
             }}
           />
         </div>

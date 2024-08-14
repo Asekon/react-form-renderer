@@ -90,6 +90,7 @@ function App() {
               name: "photo",
               label: "Photo",
               type: "file",
+              accept: "Image",
             },
             {
               name: "textarea",
@@ -158,37 +159,38 @@ function App() {
         schema={formSchema}
         onSubmit={handleSubmit}
         multiStep
-        formContainerStyle={{}}
-        stepperStyle={{
-          stepper: {
-            // marginBottom: "2rem",
-          },
-          step: {
-            // Custom styles for each step
-          },
-          indicator: {
-            backgroundColor: "#bdc3c7",
-            color: "#ffffff",
-          },
-          activeIndicator: {
-            backgroundColor: "#3498db",
-          },
-          label: {
-            color: "#7f8c8d",
-          },
-          activeLabel: {
-            color: "#2c3e50",
-            fontWeight: "bold",
-          },
-          connector: {
-            backgroundColor: "#bdc3c7",
-          },
-          activeConnector: {
-            backgroundColor: "#3498db",
-          },
-        }}
-        stepTitleStyle={{ textAlign: "left" }}
-        sectionContainerStyle={{ textAlign: "left" }}
+        themeColor="#1976d2"
+        // formContainerStyle={{}}
+        // stepperStyle={{
+        //   stepper: {
+        //     // marginBottom: "2rem",
+        //   },
+        //   step: {
+        //     // Custom styles for each step
+        //   },
+        //   indicator: {
+        //     backgroundColor: "#bdc3c7",
+        //     color: "#ffffff",
+        //   },
+        //   activeIndicator: {
+        //     backgroundColor: "#3498db",
+        //   },
+        //   label: {
+        //     color: "#7f8c8d",
+        //   },
+        //   activeLabel: {
+        //     color: "#2c3e50",
+        //     fontWeight: "bold",
+        //   },
+        //   connector: {
+        //     backgroundColor: "#bdc3c7",
+        //   },
+        //   activeConnector: {
+        //     backgroundColor: "#3498db",
+        //   },
+        // }}
+        // stepTitleStyle={{ textAlign: "left" }}
+        // sectionContainerStyle={{ textAlign: "left" }}
         // sectionTitleStyle={{}}
         // inputContainerStyle={{}}
         // buttonContainerStyle={{}}

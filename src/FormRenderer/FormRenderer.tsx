@@ -25,6 +25,7 @@ const FormRenderer: React.FC<FormRendererProps> = ({
   leftButtonStyle,
   rightButtonStyle,
   validationMessageStyle,
+  themeColor = "#1976d2",
 }) => {
   const methods = useForm();
   const [activeStep, setActiveStep] = useState(0);
@@ -42,10 +43,6 @@ const FormRenderer: React.FC<FormRendererProps> = ({
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
   };
-
-  useEffect(() => {
-    methods.trigger();
-  }, [activeStep, methods]);
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
@@ -127,7 +124,7 @@ const FormRenderer: React.FC<FormRendererProps> = ({
                   key={`file-${index}`}
                   name={input.name}
                   control={methods.control}
-                  label={input.label}
+                  accept={input.accept}
                   rules={input.validation}
                 />
               );
@@ -153,12 +150,12 @@ const FormRenderer: React.FC<FormRendererProps> = ({
 
   const renderStep = (step: FormStep, stepIndex: number) => (
     <div key={`step-${stepIndex}`}>
-      <h2
+      <div
         className="step-title"
         style={{ ...stepTitleStyle, ...step.stepTitleStyle }}
       >
         {step.title}
-      </h2>
+      </div>
       <div className="step-content">
         {step.sections.map((section, sectionIndex) => (
           <div
@@ -166,9 +163,9 @@ const FormRenderer: React.FC<FormRendererProps> = ({
             className="section-container"
             style={{ ...sectionContainerStyle, ...section.sectionStyle }}
           >
-            <h3 className="section-title" style={sectionTitleStyle}>
+            <div className="section-title" style={sectionTitleStyle}>
               {section.title}
-            </h3>
+            </div>
             <div
               className={`grid-container grid-cols-${section.layout.columns}`}
             >
@@ -183,6 +180,14 @@ const FormRenderer: React.FC<FormRendererProps> = ({
       </div>
     </div>
   );
+
+  useEffect(() => {
+    methods.trigger();
+  }, [activeStep, methods]);
+
+  useEffect(() => {
+    document.documentElement.style.setProperty("--theme-color", themeColor);
+  }, [themeColor]);
 
   return (
     <FormProvider {...methods}>

@@ -5,7 +5,6 @@ interface FormTextAreaProps {
   name: string;
   control: Control<any>;
   defaultValue?: string;
-  label?: string;
   placeholder?: string;
   rows?: number;
   maxChars?: number;
@@ -16,7 +15,6 @@ const FormTextArea: React.FC<FormTextAreaProps> = ({
   name,
   control,
   defaultValue = "",
-  label,
   placeholder,
   rows = 4,
   maxChars = 60,
@@ -52,6 +50,14 @@ const FormTextArea: React.FC<FormTextAreaProps> = ({
               fontFamily: "inherit",
               boxSizing: "border-box",
               minHeight: "50px",
+              outline: "none",
+              transition: "border-color 0.3s",
+            }}
+            onFocus={(e) => {
+              e.currentTarget.style.borderColor = "var(--theme-color)";
+            }}
+            onBlur={(e) => {
+              e.currentTarget.style.borderColor = "#ccc";
             }}
           />
           <div

@@ -9,18 +9,18 @@ export interface FormInput {
   options?: { label: string; value: string }[];
   validation?: { required: string };
   maxChars?: number;
-}
-
-export interface FormInputField {
-  name: string;
-  label: string;
-  type: "text" | "select" | "date" | "radio" | "file" | "time" | "textArea";
-  placeholder?: string;
-  options?: { label: string; value: string }[];
-  defaultValue?: string;
-  validation?: { required: string };
-  maxChars?: number;
-  rows?: number;
+  accept?:
+    | "Image"
+    | "PDF"
+    | "Word"
+    | "Excel"
+    | "PowerPoint"
+    | "Text"
+    | "Audio"
+    | "Video"
+    | "Zip"
+    | "CSV"
+    | "";
 }
 
 export interface FormSection {
@@ -50,6 +50,7 @@ export interface FormRendererProps {
   rightButtonStyle?: React.CSSProperties;
   validationMessageStyle?: React.CSSProperties;
   stepperStyle?: StepperStyle;
+  themeColor?: string;
 }
 export interface StepperStyle {
   stepper?: React.CSSProperties;
