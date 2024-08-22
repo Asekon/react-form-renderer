@@ -1,6 +1,6 @@
 # React Form Renderer
 
-Welcome to React Form Renderer! 🎉 This powerful and flexible library allows you to create dynamic, multi-step forms with ease. Whether you're building a simple contact form or a complex, multi-page survey, React Form Renderer has got you covered.
+Welcome to React Form Renderer! 🎉 This powerful and flexible library allows you to create dynamic, single/multi-step forms with ease. Whether you're building a simple contact form or a complex, multi-page survey, React Form Renderer has got you covered.
 
 ## Table of Contents
 
@@ -203,9 +203,6 @@ const multiStepSchema = [
 />
 ```
 
-## Contributing
-
-We welcome contributions to React Form Renderer! Please see our [Contributing Guide](CONTRIBUTING.md) for more details.
 
 ## License
 
