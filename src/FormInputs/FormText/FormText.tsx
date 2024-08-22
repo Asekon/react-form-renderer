@@ -9,6 +9,8 @@ interface FormTextProps {
   label?: string;
   placeholder?: string;
   rules?: RegisterOptions;
+  pattern?: RegExp;
+  patternMessage?: string;
   styles?: React.CSSProperties;
 }
 
@@ -16,9 +18,10 @@ const FormText = ({
   name,
   control,
   defaultValue,
-  label,
   placeholder,
   rules,
+  pattern,
+  patternMessage,
   styles,
 }: FormTextProps) => {
   return (
@@ -26,25 +29,37 @@ const FormText = ({
       name={name}
       control={control}
       defaultValue={defaultValue}
-      rules={rules}
-      render={({ field, fieldState: { error } }) => (
+      rules={{
+        ...rules,
+        pattern:
+          pattern && patternMessage
+            ? {
+                value: pattern,
+                message: patternMessage,
+              }
+            : undefined,
+      }}
+      render={({ field, fieldState: { invalid, isTouched } }) => (
         <div className="form-text">
-          {label && (
-            <label htmlFor={name} className="form-text__label">
-              {label}
-            </label>
-          )}
           <input
             {...field}
             id={name}
             type="text"
             placeholder={placeholder}
-            // className={`form-text__input ${
-            //   error ? "form-text__input--error" : ""
-            // }`}
-            className={`form-text__input`}
+            className={`form-text__input ${
+              invalid && isTouched ? "form-text__input--error" : ""
+            }`}
             style={styles}
+            onBlur={() => {
+              field.onBlur();
+            }}
+            onChange={(e) => {
+              field.onChange(e);
+            }}
           />
+          {invalid && isTouched && (
+            <div className="patternMessage">{patternMessage}</div>
+          )}
         </div>
       )}
     />

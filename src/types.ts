@@ -9,6 +9,10 @@ export interface FormInput {
   options?: { label: string; value: string }[];
   validation?: { required: string };
   maxChars?: number;
+  buttonText?: string;
+  pattern?: RegExp;
+  patternMessage?: string;
+  styles?: React.CSSProperties;
   accept?:
     | "Image"
     | "PDF"

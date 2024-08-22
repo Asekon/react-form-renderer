@@ -27,7 +27,7 @@ const FormRenderer: React.FC<FormRendererProps> = ({
   validationMessageStyle,
   themeColor = "#1976d2",
 }) => {
-  const methods = useForm();
+  const methods = useForm({ mode: "onChange" });
   const [activeStep, setActiveStep] = useState(0);
 
   const handleSubmit = async () => {
@@ -72,6 +72,9 @@ const FormRenderer: React.FC<FormRendererProps> = ({
                   defaultValue={input.defaultValue || ""}
                   placeholder={input.placeholder}
                   rules={input.validation}
+                  pattern={input.pattern}
+                  patternMessage={input.patternMessage}
+                  styles={input.styles}
                 />
               );
             case "select":
@@ -126,6 +129,7 @@ const FormRenderer: React.FC<FormRendererProps> = ({
                   control={methods.control}
                   accept={input.accept}
                   rules={input.validation}
+                  buttonText={input.buttonText}
                 />
               );
             case "textArea":

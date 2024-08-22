@@ -5,11 +5,6 @@
   background-color: transparent;
 }
 
-.form-text__label {
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-}
-
 .form-text__input {
   padding: 0.75rem;
   font-size: 1rem;
@@ -25,11 +20,11 @@
 }
 
 .form-text__input--error {
-  border-color: #dc3545;
+  border-color: var(--red);
 }
 
-.form-text__error {
-  color: #dc3545;
-  font-size: 0.875rem;
-  margin-top: 0.25rem;
+.patternMessage {
+  padding-top: 10px;
+  text-align: right;
+  color: var(--red);
 }

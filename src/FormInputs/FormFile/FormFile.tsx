@@ -6,6 +6,7 @@ interface FormFileProps {
   control: Control<any>;
   accept?: string;
   rules?: RegisterOptions;
+  buttonText?: string;
 }
 
 const FormFile: React.FC<FormFileProps> = ({
@@ -13,6 +14,7 @@ const FormFile: React.FC<FormFileProps> = ({
   control,
   rules,
   accept,
+  buttonText,
 }) => {
   const handleFileChange =
     (onChange: (file: File | null) => void) =>
@@ -60,7 +62,7 @@ const FormFile: React.FC<FormFileProps> = ({
                 transition: "background-color 0.3s",
               }}
             >
-              Choose File
+              {buttonText || "Choose File"}
               <input
                 accept={accept && fileTypeMappings[accept]}
                 type="file"

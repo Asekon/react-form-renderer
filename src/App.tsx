@@ -19,13 +19,13 @@ function App() {
               type: "text",
               placeholder: "Patient Name",
               validation: { required: "Name is required" },
+              styles: {},
             },
             {
               name: "fileId",
               label: "File ID",
               type: "text",
               placeholder: "Patient File ID",
-              validation: { required: "File ID is required" },
             },
             {
               name: "patientType",
@@ -59,6 +59,9 @@ function App() {
               label: "Email",
               type: "text",
               placeholder: "Patient Email",
+              validation: { required: "email is required" },
+              pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+              patternMessage: "Invalid email format",
             },
           ],
         },
@@ -91,6 +94,7 @@ function App() {
               label: "Photo",
               type: "file",
               accept: "Image",
+              // buttonText: "Upload Photo",
             },
             {
               name: "textarea",
