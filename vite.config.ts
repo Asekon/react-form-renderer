@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
-// import { peerDependencies } from "./package.json";
+import react from "@vitejs/plugin-react";
+import { libInjectCss } from "vite-plugin-lib-inject-css";
 
 export default defineConfig({
   build: {
@@ -21,6 +22,7 @@ export default defineConfig({
     },
     sourcemap: true,
     emptyOutDir: true,
+    cssCodeSplit: true,
   },
-  plugins: [dts()],
+  plugins: [react(), dts(), libInjectCss()],
 });

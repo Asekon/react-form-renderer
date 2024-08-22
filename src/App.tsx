@@ -1,6 +1,5 @@
 import "./App.css";
-// import FormRenderer from "./FormRenderer/FormRenderer";
-import { FormRenderer } from "@asekon/react-form-renderer";
+import FormRenderer from "./FormRenderer/FormRenderer";
 import { FormStep } from "./types";
 
 function App() {
