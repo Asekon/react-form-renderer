@@ -16,7 +16,6 @@ const FormSelect = ({
   name,
   control,
   defaultValue,
-  label,
   options,
   rules,
   styles,
@@ -49,11 +48,6 @@ const FormSelect = ({
       rules={rules}
       render={({ field, fieldState: { error } }) => (
         <div className="form-select" ref={dropdownRef}>
-          {/* {label && (
-            <label htmlFor={name} className="form-select__label">
-              {label}
-            </label>
-          )} */}
           <div
             className={`form-select__input ${isOpen ? "open" : ""} ${
               error ? "form-select__input--error" : ""
