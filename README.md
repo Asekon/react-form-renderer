@@ -11,7 +11,6 @@ Welcome to React Form Renderer! 🎉 This powerful and flexible library allows y
 - [Form Schema](#form-schema)
 - [Styling](#styling)
 - [Examples](#examples)
-- [Contributing](#contributing)
 - [License](#license)
 
 ## Installation
