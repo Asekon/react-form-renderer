@@ -1,5 +1,6 @@
 import "./App.css";
-import FormRenderer from "./FormRenderer/FormRenderer";
+// import FormRenderer from "./FormRenderer/FormRenderer";
+import { FormRenderer } from "@asekon/react-form-renderer";
 import { FormStep } from "./types";
 
 function App() {
@@ -157,6 +158,7 @@ function App() {
   const handleSubmit = (values: any) => {
     console.log(values);
   };
+
   return (
     <>
       <FormRenderer
