@@ -32,7 +32,6 @@ yarn add @asekon/react-form-renderer
 Here's a simple example to get you up and running:
 
 ```jsx
-import React from "react";
 import { FormRenderer, FormStep } from "@asekon/react-form-renderer";
 
 function App() {
