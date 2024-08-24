@@ -8,11 +8,11 @@ export default defineConfig({
     lib: {
       entry: "./src/index.ts",
       name: "react-form-renderer",
-      fileName: (format) => `index.${format}.ts`,
+      fileName: (format) => `index.${format}.js`,
       formats: ["cjs", "es"],
     },
     rollupOptions: {
-      external: ["react", "react-dom"],
+      external: ["react", "react-dom", "@testing-library/dom"],
       output: {
         globals: {
           react: "React",
