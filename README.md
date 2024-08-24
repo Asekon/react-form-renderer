@@ -9,7 +9,7 @@ Welcome to @asekon/react-form-renderer! 🎉 This powerful and flexible React li
 - [Features](#features)
 - [Props](#props)
 - [Form Schema](#form-schema)
-- [Input Types](#input-types)
+- [Input Types and Props](#input-types-and-props)
 - [Styling](#styling)
 - [Advanced Usage](#advanced-usage)
 - [Examples](#examples)
@@ -72,6 +72,11 @@ function App() {
 export default App;
 ```
 
+Here's how this example would look:
+![Alt text](https://github.com/user-attachments/assets/b58ad01c-9e00-4730-b7c5-92303a824f39)
+
+
+
 ## Features
 
 - 📋 Single and multi-step form support
@@ -120,40 +125,48 @@ interface FormSection {
   sectionStyle?: React.CSSProperties;
   inputs: FormInput[];
 }
-
-interface FormInput {
-  name: string;
-  label: string;
-  type: 'text' | 'select' | 'date' | 'time' | 'radio' | 'file' | 'textArea';
-  placeholder?: string;
-  validation?: {
-    required?: string;
-    // Add other validation rules as needed
-  };
-  options?: { label: string; value: string }[]; // For select and radio inputs
-  defaultValue?: any;
-  pattern?: RegExp; // For text inputs
-  patternMessage?: string;
-  styles?: React.CSSProperties;
-  accept?: string; // For file inputs
-  buttonText?: string; // For file inputs
-  maxChars?: number; // For textArea inputs
-}
 ```
 
-## Input Types
+## Input Types and Props
 
-@asekon/react-form-renderer supports various input types to cater to different form requirements:
+Each input in the form is defined by a `FormInput` object. Here's a detailed breakdown of the available input types and their specific props:
 
-1. `text`: Standard text input
-2. `select`: Dropdown select input
-3. `date`: Date picker input
-4. `time`: Time picker input
-5. `radio`: Radio button group
-6. `file`: File upload input
-7. `textArea`: Multi-line text input
+| Input Type | Description | Specific Props |
+|------------|-------------|----------------|
+| `text` | Standard text input | `placeholder`, `pattern`, `patternMessage` |
+| `select` | Dropdown select input | `options` (array of `{label, value}` objects), `defaultValue` |
+| `date` | Date picker input | `defaultValue` |
+| `time` | Time picker input | `defaultValue` |
+| `radio` | Radio button group | `options` (array of `{label, value}` objects), `defaultValue` |
+| `file` | File upload input | `accept`, `buttonText` |
+| `textArea` | Multi-line text input | `placeholder`, `maxChars` |
 
-Each input type has its own specific properties. For example, `select` and `radio` types require an `options` array, while `file` type accepts `accept` and `buttonText` properties.
+Common props for all input types:
+
+- `name` (string, required): Unique identifier for the input field
+- `label` (string): Label text for the input field
+- `type` (string, required): Type of the input field (one of the above types)
+- `validation` (object): Validation rules (e.g., `{ required: "This field is required" }`)
+- `styles` (object): Custom CSS styles for the input
+
+Example of a text input with all possible props:
+
+```jsx
+{
+  name: "username",
+  label: "Username",
+  type: "text",
+  placeholder: "Enter your username",
+  validation: { 
+    required: "Username is required",
+    pattern: {
+      value: /^[A-Za-z0-9]+$/,
+      message: "Username must be alphanumeric"
+    }
+  },
+  styles: { border: "1px solid #ccc", borderRadius: "4px" }
+}
+```
 
 ## Styling
 
@@ -289,7 +302,7 @@ const multiStepSchema: FormStep[] = [
 
 ## License
 
-@asekon/react-form-renderer is MIT licensed. See [LICENSE](LICENSE) for more information.
+@asekon/react-form-renderer is MIT licensed.
 
 ---
 
