@@ -1,6 +1,6 @@
-# React Form Renderer
+# @asekon/react-form-renderer
 
-Welcome to React Form Renderer! 🎉 This powerful and flexible library allows you to create dynamic, single/multi-step forms with ease. Whether you're building a simple contact form or a complex, multi-page survey, React Form Renderer has got you covered.
+Welcome to @asekon/react-form-renderer! 🎉 This powerful and flexible React library allows you to create dynamic, single-step or multi-step forms with ease. Whether you're building a simple contact form or a complex, multi-page survey, @asekon/react-form-renderer has got you covered.
 
 ## Table of Contents
 
@@ -9,20 +9,22 @@ Welcome to React Form Renderer! 🎉 This powerful and flexible library allows y
 - [Features](#features)
 - [Props](#props)
 - [Form Schema](#form-schema)
+- [Input Types](#input-types)
 - [Styling](#styling)
+- [Advanced Usage](#advanced-usage)
 - [Examples](#examples)
 - [License](#license)
 
 ## Installation
 
-To get started with React Form Renderer, simply install it using npm or yarn:
+To get started with @asekon/react-form-renderer, simply install it using npm or yarn:
 
 ```bash
-npm install react-form-renderer
+npm install @asekon/react-form-renderer
 
 # or
 
-yarn add react-form-renderer
+yarn add @asekon/react-form-renderer
 ```
 
 ## Quick Start
@@ -31,15 +33,16 @@ Here's a simple example to get you up and running:
 
 ```jsx
 import React from 'react';
-import FormRenderer from 'react-form-renderer';
+import { FormRenderer, FormStep } from "@asekon/react-form-renderer";
 
-const MyForm = () => {
-  const formSchema = [
+function App() {
+  const formSchema: FormStep[] = [
     {
       title: "Personal Information",
       sections: [
         {
           title: "Basic Details",
+          layout: { columns: 2 },
           inputs: [
             {
               name: "fullName",
@@ -64,20 +67,20 @@ const MyForm = () => {
   };
 
   return <FormRenderer schema={formSchema} onSubmit={handleSubmit} />;
-};
+}
 
-export default MyForm;
+export default App;
 ```
 
 ## Features
 
-- 📋 Multi-step form support
-- 🎨 Highly customizable UI
-- 📱 Responsive design
+- 📋 Single and multi-step form support
+- 🎨 Highly customizable UI with theming
+- 📱 Responsive design with dynamic column layout
 - ✅ Built-in validation
-- 🔄 Dynamic form fields
-- 🌈 Theming support
-- ♿ Accessibility features
+- 🔄 Various input types (text, select, date, time, radio, file, textarea)
+- 🌈 Custom styling for each component
+- ♿ Accessibility-friendly
 
 ## Props
 
@@ -138,20 +141,102 @@ interface FormInput {
 }
 ```
 
+## Input Types
+
+@asekon/react-form-renderer supports various input types to cater to different form requirements:
+
+1. `text`: Standard text input
+2. `select`: Dropdown select input
+3. `date`: Date picker input
+4. `time`: Time picker input
+5. `radio`: Radio button group
+6. `file`: File upload input
+7. `textArea`: Multi-line text input
+
+Each input type has its own specific properties. For example, `select` and `radio` types require an `options` array, while `file` type accepts `accept` and `buttonText` properties.
+
 ## Styling
 
-React Form Renderer provides extensive styling options:
+@asekon/react-form-renderer provides extensive styling options:
 
 1. Use the `themeColor` prop to set the primary color for your form.
 2. Override specific styles using the various style props (`formContainerStyle`, `stepperStyle`, etc.).
 3. For more granular control, you can add custom styles to individual form elements using the `styles` property in the `FormInput` object.
+4. The library uses a responsive grid system. You can control the number of columns in each section using the `layout.columns` property in the `FormSection` object.
+
+## Advanced Usage
+
+### Dynamic Column Layout
+
+You can control the number of columns for inputs within a section using the `layout.columns` property:
+
+```jsx
+{
+  title: "Personal Details",
+  layout: { columns: 2 },
+  inputs: [
+    { name: "firstName", label: "First Name", type: "text" },
+    { name: "lastName", label: "Last Name", type: "text" },
+    { name: "email", label: "Email", type: "text" },
+    { name: "phone", label: "Phone", type: "text" }
+  ]
+}
+```
+
+This will create a 2-column layout for the inputs, automatically wrapping to the next row when needed.
+
+### Custom Validation
+
+You can add custom validation rules to your inputs:
+
+```jsx
+{
+  name: "email",
+  label: "Email",
+  type: "text",
+  validation: {
+    required: "Email is required",
+    pattern: {
+      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+      message: "Invalid email address"
+    }
+  }
+}
+```
+
+### File Upload
+
+For file inputs, you can specify accepted file types and custom button text:
+
+```jsx
+{
+  name: "photo",
+  label: "Photo",
+  type: "file",
+  accept: "image/*",
+  buttonText: "Upload Photo"
+}
+```
+
+### Text Area with Character Limit
+
+For textarea inputs, you can set a maximum character limit:
+
+```jsx
+{
+  name: "description",
+  label: "Description",
+  type: "textArea",
+  maxChars: 200
+}
+```
 
 ## Examples
 
 ### Multi-step Form
 
 ```jsx
-const multiStepSchema = [
+const multiStepSchema: FormStep[] = [
   {
     title: "Personal Info",
     sections: [
@@ -202,13 +287,12 @@ const multiStepSchema = [
 />
 ```
 
-
 ## License
 
-React Form Renderer is MIT licensed. See [LICENSE](LICENSE) for more information.
+@asekon/react-form-renderer is MIT licensed. See [LICENSE](LICENSE) for more information.
 
 ---
 
-We hope you enjoy using React Form Renderer! If you have any questions or run into any issues, please don't hesitate to [open an issue](https://github.com/your-username/react-form-renderer/issues) on our GitHub repository.
+We hope you enjoy using @asekon/react-form-renderer! If you have any questions or run into any issues, please don't hesitate to [open an issue](https://github.com/asekon/react-form-renderer/issues) on our GitHub repository.
 
 Happy coding! 🚀
