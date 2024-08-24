@@ -49,7 +49,7 @@ const FormText = ({
             className={`form-text__input ${
               invalid && isTouched ? "form-text__input--error" : ""
             }`}
-            style={styles}
+            style={styles || {}}
             onBlur={() => {
               field.onBlur();
             }}
