@@ -1,7 +1,7 @@
 {
   "name": "@asekon/react-form-renderer",
   "private": false,
-  "version": "1.1.0",
+  "version": "1.1.1",
   "type": "module",
   "description": "A powerful and flexible library allows you to create dynamic, single/multi-step forms with ease.",
   "keywords": [
